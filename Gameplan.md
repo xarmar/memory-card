@@ -37,5 +37,4 @@ Before I start to code I need to understand what the end goal is and what the UX
 - Character:
     - Has a name
     - Has a picture
-    - Has a catchphrase
 
