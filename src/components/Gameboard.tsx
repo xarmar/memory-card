@@ -4,6 +4,7 @@ import createCharacter from "../factoryFunctions/characterFactory";
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/system";
+import Scoreboard from "./Scoreboard";
 
 // Import Character Images
 import catOne from "../assets/catOne.jpeg";
@@ -19,14 +20,24 @@ import catTen from "../assets/catTen.jpeg";
 
 
 const Gameboard = () => {
+
   // Initiate arrayOfCharacters
   let arrayOfCharacters: Char[] = [];
 
   // Keeps track of which cards to display on the screen
   const [cardsToDisplay, setCardsToDisplay] = useState<JSX.Element[]>([]);
 
-  // Keeps track of which characters the user has clicked
-  const [clickedCharacters, setClickedCharacters] = useState([]);
+	// Keeps track of what characters the user has clicked before
+  const [clickedCharacters, setClickedCharacters] = useState<Char[]>([]);
+
+  // Keeps track of the user's latest click 
+  const [latestClickedChar, setLastestClickedChar] = useState<Char>();
+
+  // Keeps track of user's current score
+  const [currentScore, setCurrentScore] = useState<number>(0);
+
+  // Keeps track of user's best score
+  const [bestScore, setBestScore] = useState<number>(0);
 
   // Shuffles array of Characters
   const shuffleArrayOfCharacters = (arrayOfCharacters: Char[]): Char[] => {
@@ -43,7 +54,10 @@ const Gameboard = () => {
     let tempCards: JSX.Element[] = arrayOfCharacters.map((character) => {
       return (
         <Grid item xs={3} sm={2} m={1} key={arrayOfCharacters.indexOf(character)}>
-          <Card character={character} />
+          <Card 
+          handleCharacterClick = {handleCharacterClick}
+          character={character}
+          />
         </Grid>
       );
     });
@@ -51,6 +65,11 @@ const Gameboard = () => {
     // Inform component of which cards to display on the render method
     setCardsToDisplay(tempCards);
   };
+
+  // Updates latestClickedChar
+  const handleCharacterClick = (character: Char) => {
+    setLastestClickedChar(character);
+  }
 
   // On Component Mount - add Characters To array and display cards
   useEffect(() => {
@@ -84,19 +103,39 @@ const Gameboard = () => {
     updateScreen();
   }, []);
 
+  // Update bestScore if currentScore > bestScore
+  useEffect(() => {
+    // Update Best Score if applicable
+    if(currentScore > bestScore) {
+      setBestScore(currentScore);
+    }
+  }, [currentScore, bestScore])
+
+  // Decide if user gets points or if game reboots
+  useEffect(() => {
+    if(latestClickedChar !== undefined) {
+      // If user clicks the same character twice - restart
+      if(clickedCharacters.some(char => char.name === latestClickedChar.name)) {
+        setClickedCharacters(clickedCharacters => []);
+        setCurrentScore(0);
+      }
+      else {
+        setClickedCharacters(clickedCharacters => clickedCharacters.concat(latestClickedChar));
+        setCurrentScore(currentScore + 1);
+      }
+    }
+    // updateScreen();
+  }, [latestClickedChar])
+  
   return (
-    <div>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh"
-      >
-        <Grid container direction="row" justifyContent="center">
+    <Box>
+      <Grid container direction="row">
+          <Scoreboard currentScore={currentScore} bestScore={bestScore} />
+        <Grid container item direction="row" justifyContent="center">
           {[cardsToDisplay]}
         </Grid>
-      </Box>
-    </div>
+      </Grid>
+    </Box>
   );
 };
 
