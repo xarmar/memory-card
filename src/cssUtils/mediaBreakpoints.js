@@ -1,5 +1,5 @@
 const mediaBreakPoint = {
-    mobile: "@media screen and (max-width: 599px)",
+  mobile: "@media screen and (max-width: 599px)",
 };
 
-export default mediaBreakPoint
+export default mediaBreakPoint;
