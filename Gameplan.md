@@ -12,8 +12,6 @@ Before I start to code I need to understand what the end goal is and what the UX
     - Each card display a **character**. Each character has a:
         - Name
         - Picture
-        - Catchphrase.
-
 - The player's goal is to pick as many different characters as possible in succession. This will give the player points. For example, picking 5 different characters in sucession, means a score of 5.
 
 - Each time the player clicks an image, the cards are shuffled and displayed on the screen once again.
