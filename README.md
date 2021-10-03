@@ -1,19 +1,11 @@
 # Memory Card Game - React Project
 
-## Goal:
-- To get familiar with React's functional components and hooks (mainly useState and useEffect).
+- **To view the finished App, please [click here](https://xarmar.github.io/memory-card/)**.
+- The goal of this project was to get familiar with React's functional components and hooks (mainly useState and useEffect).
 
 <br>
 
-## Project Idea:
--  [The Odin Project](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/memory-card)
-
-
-
-
-<br>
-
-## Technology Stack Used in This Project:
+### Technology Stack Used in This Project:
 
 <br>
 <a href="https://www.typescriptlang.org/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> 
@@ -23,11 +15,18 @@
 <br>
 <br>
 
-## Frameworks Used:
+### Frameworks Used:
 
 - Material UI
 
 <br>
+
+### Project Idea:
+- [The Odin Project](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/memory-card)
+
+
+<br>
+
 
 ## Get In Touch With Me:
 <br>
