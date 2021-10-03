@@ -3,6 +3,9 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import styled from "@emotion/styled";
 
+const mediaBreakPoint = {
+  mobile: "@media screen and (max-width: 599px)",
+};
 
 type bgImageProps = {
   picture: any;
@@ -20,8 +23,12 @@ const CardContainer = styled(Grid)`
 
 const BackgroundImageDiv = styled.div<bgImageProps>`
   background-image: url(${(props) => props.picture});
+  background-position: center;
   background-size: cover;
   height: 180px;
+  ${mediaBreakPoint.mobile} {
+    height:100px;
+  }
 `;
 
 interface CardProps {
