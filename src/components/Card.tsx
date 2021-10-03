@@ -2,10 +2,9 @@ import { Char } from "../types/customTypes";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import styled from "@emotion/styled";
+import mediaBreakPoint from "../cssUtils/mediaBreakpoints"
 
-const mediaBreakPoint = {
-  mobile: "@media screen and (max-width: 599px)",
-};
+
 
 type bgImageProps = {
   picture: any;
