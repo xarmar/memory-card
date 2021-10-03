@@ -22,22 +22,20 @@ import catTen from "../assets/catTen.jpeg";
 const Gameboard = () => {
 
   // Initiate arrayOfCharacters
-  let arrayOfCharacters: Char[] = [];
-
+  const [arrayOfCharacters, setArrayOfCharacters] = useState<Char[]>([]);
   // Keeps track of which cards to display on the screen
   const [cardsToDisplay, setCardsToDisplay] = useState<JSX.Element[]>([]);
 
 	// Keeps track of what characters the user has clicked before
   const [clickedCharacters, setClickedCharacters] = useState<Char[]>([]);
-
   // Keeps track of the user's latest click 
   const [latestClickedChar, setLastestClickedChar] = useState<Char>();
 
   // Keeps track of user's current score
   const [currentScore, setCurrentScore] = useState<number>(0);
-
   // Keeps track of user's best score
   const [bestScore, setBestScore] = useState<number>(0);
+
 
   // Shuffles array of Characters
   const shuffleArrayOfCharacters = (arrayOfCharacters: Char[]): Char[] => {
@@ -45,33 +43,19 @@ const Gameboard = () => {
     return randomizedArray;
   };
 
-  // Tells GameBoard Component which cards to display on the screen
-  const updateScreen = () => {
-    // Shuffle Array of Characters
-    shuffleArrayOfCharacters(arrayOfCharacters);
-
-    // Create List Of Cards To Display on The Screen
-    let tempCards: JSX.Element[] = arrayOfCharacters.map((character) => {
-      return (
-        <Grid item xs={3} sm={2} m={1} key={arrayOfCharacters.indexOf(character)}>
-          <Card 
-          handleCharacterClick = {handleCharacterClick}
-          character={character}
-          />
-        </Grid>
-      );
-    });
-
-    // Inform component of which cards to display on the render method
-    setCardsToDisplay(tempCards);
-  };
-
   // Updates latestClickedChar
   const handleCharacterClick = (character: Char) => {
-    setLastestClickedChar(character);
+      setLastestClickedChar(char => character);
   }
 
-  // On Component Mount - add Characters To array and display cards
+  // Resets game
+  const resetRound = () => {
+    setClickedCharacters([]);
+    setLastestClickedChar(undefined);
+    setCurrentScore(currentScore => 0);
+  }
+
+  // On Component Mount - add Characters to arrayOfCharacters
   useEffect(() => {
     // Create Characters
     let uhtred: Char = createCharacter("Uhtred", catOne);
@@ -85,8 +69,9 @@ const Gameboard = () => {
     let ragnar: Char = createCharacter("Ragnar", catNine);
     let ubba: Char = createCharacter('Ubba', catTen);
 
-    // Add Characters to Array
-    arrayOfCharacters.push(
+    let tempArray: Char[] = [];
+
+    tempArray.push(
       uhtred,
       beocca,
       leofric,
@@ -99,9 +84,36 @@ const Gameboard = () => {
       ubba
     );
 
-    // Update Screen with Cards
+    setArrayOfCharacters(arrayOfCharacters => tempArray);
+  }, []); 
+
+  // When arrayOfCharacters or clickedCharacters are updated, update the screen
+  useEffect(() => {
+    // Tells GameBoard Component which cards to display on the screen
+    const updateScreen = () => {
+      // Shuffle Array of Characters
+      let tempArray = arrayOfCharacters;
+      let shuffledArray = shuffleArrayOfCharacters(tempArray);
+
+      // Create List Of Cards To Display on The Screen
+      let tempCards: JSX.Element[] = shuffledArray.map((character) => {
+        return (
+          <Grid item xs={3} sm={2} m={1} key={shuffledArray.indexOf(character)}>
+            <Card 
+            handleCharacterClick = {handleCharacterClick}
+            character={character}
+            />
+          </Grid>
+        );
+      });
+
+      // Inform component of which cards to display on the render method
+      setCardsToDisplay(tempCards);
+    }
+
     updateScreen();
-  }, []);
+
+  }, [arrayOfCharacters, clickedCharacters])
 
   // Update bestScore if currentScore > bestScore
   useEffect(() => {
@@ -111,21 +123,25 @@ const Gameboard = () => {
     }
   }, [currentScore, bestScore])
 
-  // Decide if user gets points or if game reboots
+  // Decide if user gets points or if game resets
   useEffect(() => {
     if(latestClickedChar !== undefined) {
-      // If user clicks the same character twice - restart
+      // If user clicks the same character twice - reset Round
       if(clickedCharacters.some(char => char.name === latestClickedChar.name)) {
-        setClickedCharacters(clickedCharacters => []);
-        setCurrentScore(0);
+        resetRound();
       }
       else {
+        // Add character to clickedCharacters array
         setClickedCharacters(clickedCharacters => clickedCharacters.concat(latestClickedChar));
-        setCurrentScore(currentScore + 1);
+        // Increment user score
+        setCurrentScore(currentScore => currentScore + 1);
+        /* Set state to undefined to allow state to change if user clicks the same character twice in a row 
+        (otherwise, state would be the same and it would not trigger this useEffect since the array dependency would not change).*/
+        setLastestClickedChar(char => undefined);
+
       }
     }
-    // updateScreen();
-  }, [latestClickedChar])
+  }, [latestClickedChar, clickedCharacters])
   
   return (
     <Box>
