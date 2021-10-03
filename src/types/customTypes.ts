@@ -1,5 +1,4 @@
-
 export type Char = {
-    name: string,
-    picture: string
-}
+  name: string;
+  picture: string;
+};

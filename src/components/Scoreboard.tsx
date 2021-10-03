@@ -7,9 +7,9 @@ const ScoreboardContainer = styled(Grid)`
   background-color: pink;
 `;
 const CenteredGridMobile = styled(Grid)`
-	justify-content: end;
+  justify-content: end;
   ${mediaBreakPoint.mobile} {
-		justify-content: center !important;
+    justify-content: center !important;
     margin: 0 auto;
   }
 `;
@@ -34,13 +34,7 @@ const Scoreboard = (props: ScoreboardProps) => {
         <CenteredGridMobile item m={1} mb={0} sm={2}>
           <Typography variant="h5">CatMemory!</Typography>
         </CenteredGridMobile>
-        <CenteredGridMobile
-          container
-          item
-          m={1}
-          mb={0}
-          sm={9}
-        >
+        <CenteredGridMobile container item m={1} mb={0} sm={9}>
           <Grid item>
             <Typography variant="h5" textAlign="center">
               Score: {props.currentScore}

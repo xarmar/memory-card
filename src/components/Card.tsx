@@ -2,9 +2,7 @@ import { Char } from "../types/customTypes";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import styled from "@emotion/styled";
-import mediaBreakPoint from "../cssUtils/mediaBreakpoints"
-
-
+import mediaBreakPoint from "../cssUtils/mediaBreakpoints";
 
 type bgImageProps = {
   picture: any;
@@ -26,17 +24,16 @@ const BackgroundImageDiv = styled.div<bgImageProps>`
   background-size: cover;
   height: 180px;
   ${mediaBreakPoint.mobile} {
-    height:100px;
+    height: 100px;
   }
 `;
 
 interface CardProps {
-  character: Char,
-  handleCharacterClick: Function
+  character: Char;
+  handleCharacterClick: Function;
 }
 
 const Card = (props: CardProps) => {
-
   return (
     <CardContainer
       container
