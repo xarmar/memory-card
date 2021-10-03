@@ -24,63 +24,8 @@ import catFourteen from "../assets/catFourteen.jpeg";
 import catFifteen from "../assets/catFifteen.jpeg";
 
 const Gameboard = () => {
-  // Initiate arrayOfCharacters
+  // When Component's mounts, this arrayOfCharacters is set.
   const [arrayOfCharacters, setArrayOfCharacters] = useState<Char[]>([]);
-  // Keeps track of which cards to display on the screen
-  const [cardsToDisplay, setCardsToDisplay] = useState<JSX.Element[]>([]);
-
-  // Keeps track of what characters the user has clicked before
-  const [clickedCharacters, setClickedCharacters] = useState<Char[]>([]);
-  // Keeps track of the user's latest click
-  const [latestClickedChar, setLastestClickedChar] = useState<Char>();
-
-  // Keeps track of user's current score
-  const [currentScore, setCurrentScore] = useState<number>(0);
-  // Keeps track of user's best score
-  const [bestScore, setBestScore] = useState<number>(0);
-
-  // Shuffles array of Characters
-  const shuffleArrayOfCharacters = (arrayOfCharacters: Char[]): Char[] => {
-    /*
-    let possibleIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-    let pickedIndexes = [];
-
-    let desiredCharacters = 9;
-    while (desiredCharacters > 0) {
-      // Pick random index push it to pickedIndexes Array
-      let pickRandomIndex = Math.floor(Math.random() * possibleIndexes.length);
-      pickedIndexes.push(possibleIndexes[pickRandomIndex]);
-
-      // Remove the picked index from the possible Indexes array
-      let indexToRemove = possibleIndexes.indexOf(
-        possibleIndexes[pickRandomIndex]
-      );
-      possibleIndexes.splice(indexToRemove, 1);
-
-      desiredCharacters--;
-    }
-
-    let desiredCats: Char[] = [];
-
-    pickedIndexes.forEach((index) => {
-      desiredCats.push(arrayOfCharacters[index]);
-    });
-  */
-    let randomizedArray = arrayOfCharacters.sort(() => Math.random() - 0.5);
-    return randomizedArray;
-  };
-
-  // Updates latestClickedChar
-  const handleCharacterClick = (character: Char) => {
-    setLastestClickedChar((char) => character);
-  };
-
-  // Resets game
-  const resetRound = () => {
-    setClickedCharacters([]);
-    setLastestClickedChar(undefined);
-    setCurrentScore((currentScore) => 0);
-  };
 
   // On Component Mount - add Characters to arrayOfCharacters
   useEffect(() => {
@@ -124,18 +69,85 @@ const Gameboard = () => {
     setArrayOfCharacters((arrayOfCharacters) => tempArray);
   }, []);
 
-  // When arrayOfCharacters or clickedCharacters are updated, update the screen
+  // Tells which characters (10 out of 15) will be displayed on the screen
+  const [chosenCharacters, setChosenCharacters] = useState<Char[]>([]);
+
+  // Holds the JSX.Element that is used to generate the Cards
+  const [cardsToDisplay, setCardsToDisplay] = useState<JSX.Element[]>([]);
+
+  // Keeps track of what characters the user has clicked before
+  const [clickedCharacters, setClickedCharacters] = useState<Char[]>([]);
+
+  // Keeps track of the user's latest click
+  const [latestClickedChar, setLastestClickedChar] = useState<Char>();
+
+  // Keeps track of user's current score
+  const [currentScore, setCurrentScore] = useState<number>(0);
+
+  // Keeps track of user's best score
+  const [bestScore, setBestScore] = useState<number>(0);
+
+  // Updates latestClickedChar state
+  const handleCharacterClick = (character: Char) => {
+    setLastestClickedChar((char) => character);
+  };
+
+  // Resets game (resets some state values to [], undefined and 0)
+  const resetRound = () => {
+    setClickedCharacters([]);
+    setLastestClickedChar(undefined);
+    setCurrentScore((currentScore) => 0);
+  };
+
+  // When the arrayOfCharacters is first assigned OR when the user clicks a character => randomly assign chosenCharacters that will display on screen
+  useEffect(() => {
+    // Make sure arrayOfCharacters's state has already updaded and is not undefined
+    if (arrayOfCharacters.length > 0) {
+      // Set logic for App to pick 10/15 available characters
+      let possibleIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+      let pickedIndexes: number[] = [];
+      let randomChosenCharacters: Char[] = [];
+
+      // Loop until 9 characters are picked
+      let desiredCharacters = 9;
+      while (desiredCharacters > 0) {
+        // Pick a random index and push it to pickedIndexes Array
+        let pickRandomIndex = Math.floor(
+          Math.random() * possibleIndexes.length
+        );
+        pickedIndexes.push(possibleIndexes[pickRandomIndex]);
+
+        // Remove the pickedIndex from the possibleIndexes array
+        let indexToRemove = possibleIndexes.indexOf(
+          possibleIndexes[pickRandomIndex]
+        );
+        possibleIndexes.splice(indexToRemove, 1);
+
+        desiredCharacters--;
+      }
+      // Loop over pickedIndexes and push the corresponding characters to randomChosenCharacters array
+      pickedIndexes.forEach((index) => {
+        randomChosenCharacters.push(arrayOfCharacters[index]);
+      });
+
+      setChosenCharacters((chosenCharacters) => randomChosenCharacters);
+    }
+  }, [arrayOfCharacters, clickedCharacters]);
+
+  // When chosenCharacters updated, update the screen with the chosenCharacters
   useEffect(() => {
     // Tells GameBoard Component which cards to display on the screen
-    const updateScreen = () => {
-      // Shuffle Array of Characters
-      let tempArray = arrayOfCharacters;
-      let shuffledArray = shuffleArrayOfCharacters(tempArray);
-
+    const updateScreen = (chosenCharacters: Char[]) => {
       // Create List Of Cards To Display on The Screen
-      let tempCards: JSX.Element[] = shuffledArray.map((character) => {
+      let tempCards: JSX.Element[] = chosenCharacters.map((character) => {
         return (
-          <Grid item xs={3} sm={2} m={1} key={shuffledArray.indexOf(character)}>
+          <Grid
+            item
+            xs={3}
+            sm={2}
+            m={1}
+            key={chosenCharacters.indexOf(character)}
+          >
             <Card
               handleCharacterClick={handleCharacterClick}
               character={character}
@@ -145,11 +157,11 @@ const Gameboard = () => {
       });
 
       // Inform component of which cards to display on the render method
-      setCardsToDisplay(tempCards);
+      setCardsToDisplay((cardsToDisplay) => tempCards);
     };
 
-    updateScreen();
-  }, [arrayOfCharacters, clickedCharacters]);
+    updateScreen(chosenCharacters);
+  }, [chosenCharacters]);
 
   // Update bestScore if currentScore > bestScore
   useEffect(() => {
@@ -159,7 +171,7 @@ const Gameboard = () => {
     }
   }, [currentScore, bestScore]);
 
-  // Decide if user gets points or if game resets
+  // On every click, decide if user gets points or if game resets
   useEffect(() => {
     if (latestClickedChar !== undefined) {
       // If user clicks the same character twice - reset Round
