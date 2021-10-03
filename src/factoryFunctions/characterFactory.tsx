@@ -1,11 +1,10 @@
-import { Char } from "../types/customTypes"
+import { Char } from "../types/customTypes";
 
 const createCharacter = (charName: string, pictureUrl: string): Char => {
-    return ({
-        name: charName,
-        picture: pictureUrl,
-        }
-    )
-}
+  return {
+    name: charName,
+    picture: pictureUrl,
+  };
+};
 
-export default createCharacter
+export default createCharacter;
