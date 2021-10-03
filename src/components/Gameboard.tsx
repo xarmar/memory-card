@@ -17,6 +17,12 @@ import CatSeven from "../assets/catSeven.jpeg";
 import catEight from "../assets/catEight.jpeg";
 import catNine from "../assets/catNine.jpeg";
 import catTen from "../assets/catTen.jpeg";
+import catEleven from "../assets/catEleven.jpeg";
+import catTwelve from "../assets/catTwelve.jpeg";
+import catThirteen from "../assets/catThirteen.jpeg";
+import catFourteen from "../assets/catFourteen.jpeg";
+import catFifteen from "../assets/catFifteen.jpeg";
+
 
 
 const Gameboard = () => {
@@ -39,8 +45,30 @@ const Gameboard = () => {
 
   // Shuffles array of Characters
   const shuffleArrayOfCharacters = (arrayOfCharacters: Char[]): Char[] => {
-    let randomizedArray = arrayOfCharacters.sort(() => Math.random() - 0.5);
-    return randomizedArray;
+
+    let possibleIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8 , 9, 10, 11, 12, 13, 14];
+    let pickedIndexes = [];
+    
+    let desiredCharacters = 10;
+    while(desiredCharacters > 0) {
+      // Pick random index push it to pickedIndexes Array
+      let pickRandomIndex = Math.floor(Math.random() * possibleIndexes.length);
+      pickedIndexes.push(possibleIndexes[pickRandomIndex]);
+
+      // Remove the picked index from the possible Indexes array
+      let indexToRemove = possibleIndexes.indexOf(possibleIndexes[pickRandomIndex]);
+      possibleIndexes.splice(indexToRemove, 1);
+
+      desiredCharacters--;
+    }
+
+    let desiredCats: Char[] = [];
+
+    pickedIndexes.forEach(index => {
+      desiredCats.push(arrayOfCharacters[index]);
+    });
+
+    return desiredCats;
   };
 
   // Updates latestClickedChar
@@ -68,6 +96,11 @@ const Gameboard = () => {
     let aelswith: Char = createCharacter("Aelswith", catEight);
     let ragnar: Char = createCharacter("Ragnar", catNine);
     let ubba: Char = createCharacter('Ubba', catTen);
+    let hild: Char = createCharacter('Hild', catEleven);
+    let Sihtric: Char = createCharacter('Sihtric', catTwelve);
+    let Osferth: Char = createCharacter('Osferth', catThirteen);
+    let Eadith: Char = createCharacter('Eadith', catFourteen);
+    let Aldhelm: Char = createCharacter('Aldhelm', catFifteen);
 
     let tempArray: Char[] = [];
 
@@ -81,7 +114,12 @@ const Gameboard = () => {
       iseult,
       aelswith,
       ragnar,
-      ubba
+      ubba,
+      hild,
+      Sihtric,
+      Osferth,
+      Eadith,
+      Aldhelm
     );
 
     setArrayOfCharacters(arrayOfCharacters => tempArray);
