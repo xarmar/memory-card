@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/memory-card/static/css/main.afd7172b.chunk.css",
+    "main.js": "/memory-card/static/js/main.5845a814.chunk.js",
+    "main.js.map": "/memory-card/static/js/main.5845a814.chunk.js.map",
+    "runtime-main.js": "/memory-card/static/js/runtime-main.73480ed4.js",
+    "runtime-main.js.map": "/memory-card/static/js/runtime-main.73480ed4.js.map",
+    "static/js/2.bdf262a9.chunk.js": "/memory-card/static/js/2.bdf262a9.chunk.js",
+    "static/js/2.bdf262a9.chunk.js.map": "/memory-card/static/js/2.bdf262a9.chunk.js.map",
+    "index.html": "/memory-card/index.html",
+    "static/css/main.afd7172b.chunk.css.map": "/memory-card/static/css/main.afd7172b.chunk.css.map",
+    "static/js/2.bdf262a9.chunk.js.LICENSE.txt": "/memory-card/static/js/2.bdf262a9.chunk.js.LICENSE.txt",
+    "static/media/catEight.8dd7b72b.jpeg": "/memory-card/static/media/catEight.8dd7b72b.jpeg",
+    "static/media/catEleven.780be413.jpeg": "/memory-card/static/media/catEleven.780be413.jpeg",
+    "static/media/catFifteen.f13b3acc.jpeg": "/memory-card/static/media/catFifteen.f13b3acc.jpeg",
+    "static/media/catFive.bbe6989e.jpeg": "/memory-card/static/media/catFive.bbe6989e.jpeg",
+    "static/media/catFour.b9ed3abe.jpeg": "/memory-card/static/media/catFour.b9ed3abe.jpeg",
+    "static/media/catFourteen.db5bebb6.jpeg": "/memory-card/static/media/catFourteen.db5bebb6.jpeg",
+    "static/media/catNine.31960918.jpeg": "/memory-card/static/media/catNine.31960918.jpeg",
+    "static/media/catOne.d6ece169.jpeg": "/memory-card/static/media/catOne.d6ece169.jpeg",
+    "static/media/catSeven.a2868afd.jpeg": "/memory-card/static/media/catSeven.a2868afd.jpeg",
+    "static/media/catSix.28eeb4c2.jpeg": "/memory-card/static/media/catSix.28eeb4c2.jpeg",
+    "static/media/catTen.fcd6ff0b.jpeg": "/memory-card/static/media/catTen.fcd6ff0b.jpeg",
+    "static/media/catThirteen.9f911e87.jpeg": "/memory-card/static/media/catThirteen.9f911e87.jpeg",
+    "static/media/catThree.5a6c47f1.jpeg": "/memory-card/static/media/catThree.5a6c47f1.jpeg",
+    "static/media/catTwelve.0e923f06.jpeg": "/memory-card/static/media/catTwelve.0e923f06.jpeg",
+    "static/media/catTwo.27191850.jpeg": "/memory-card/static/media/catTwo.27191850.jpeg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.73480ed4.js",
+    "static/js/2.bdf262a9.chunk.js",
+    "static/css/main.afd7172b.chunk.css",
+    "static/js/main.5845a814.chunk.js"
+  ]
+}
